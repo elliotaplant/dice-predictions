@@ -10,12 +10,17 @@ def one_hot_loss():
 
 def build_model(loss_function):
     model = tf.keras.models.Sequential([
-        # tf.keras.layers.Dense(10, activation='sigmoid', input_shape=(1,)),
+        tf.keras.layers.Dense(64, activation='relu', input_shape=(1,)),
+        tf.keras.layers.Dense(64, activation='relu'),
         # 10 classes for outcomes 1 to 10
         tf.keras.layers.Dense(10, activation='softmax')
     ])
 
-    model.compile(optimizer='adam', loss=loss_function, metrics=['accuracy'])
+    # Using Adagrad optimizer
+    adam_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+
+    model.compile(optimizer=adam_optimizer,
+                  loss=loss_function, metrics=['accuracy'])
     return model
 
 
@@ -46,7 +51,7 @@ def main(num_epochs: int, loss_function: str):
     history = model.fit(
         train_data['dice_sides'], train_labels,
         epochs=num_epochs,
-        batch_size=100,
+        batch_size=10_000,
         validation_data=(val_data['dice_sides'], val_labels)
     )
 
@@ -59,7 +64,7 @@ def main(num_epochs: int, loss_function: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Train a neural network with specified loss function")
-    parser.add_argument('--num_epochs', type=int, default=200,
+    parser.add_argument('--num_epochs', type=int, default=50,
                         help='Number of training epochs')
     args = parser.parse_args()
 

@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from distribution_loss import distribution_loss
 
 
 def plot_losses():
@@ -29,7 +30,7 @@ def plot_losses():
 def plot_predictions():
     model_one_hot = tf.keras.models.load_model('models/model_one_hot.keras')
     model_distribution = tf.keras.models.load_model(
-        'models/model_distribution.keras')
+        'models/model_distribution.keras', custom_objects={"distribution_loss": distribution_loss})
 
     dice_sizes = np.arange(1, 11) / 10.0  # Normalized
     predictions_one_hot = model_one_hot.predict(dice_sizes)
