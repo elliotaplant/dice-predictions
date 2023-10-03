@@ -1,3 +1,5 @@
 .direnv
 .envrc
 data/*.csv
+models/*.keras
+history/*.csv

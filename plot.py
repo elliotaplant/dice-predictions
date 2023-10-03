@@ -5,8 +5,8 @@ import tensorflow as tf
 
 
 def plot_losses():
-    history_one_hot = pd.read_csv('history_one_hot.csv')
-    history_distribution = pd.read_csv('history_distribution.csv')
+    history_one_hot = pd.read_csv('history/history_one_hot.csv')
+    history_distribution = pd.read_csv('history/history_distribution.csv')
 
     plt.figure(figsize=(12, 6))
 
@@ -27,8 +27,9 @@ def plot_losses():
 
 
 def plot_predictions():
-    model_one_hot = tf.keras.models.load_model('model_one_hot.keras')
-    model_distribution = tf.keras.models.load_model('model_distribution.keras')
+    model_one_hot = tf.keras.models.load_model('models/model_one_hot.keras')
+    model_distribution = tf.keras.models.load_model(
+        'models/model_distribution.keras')
 
     dice_sizes = np.arange(1, 11) / 10.0  # Normalized
     predictions_one_hot = model_one_hot.predict(dice_sizes)

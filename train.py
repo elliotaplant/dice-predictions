@@ -46,14 +46,14 @@ def main(num_epochs: int, loss_function: str):
     history = model.fit(
         train_data['dice_sides'], train_labels,
         epochs=num_epochs,
-        batch_size=1000,
+        batch_size=100,
         validation_data=(val_data['dice_sides'], val_labels)
     )
 
     # You may want to save the model and/or the training history
-    model.save(f'model_{loss_function}.keras')
+    model.save(f'models/model_{loss_function}.keras')
     pd.DataFrame(history.history).to_csv(
-        f'history_{loss_function}.csv', index=False)
+        f'history/history_{loss_function}.csv', index=False)
 
 
 if __name__ == "__main__":
