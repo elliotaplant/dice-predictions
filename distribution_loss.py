@@ -26,8 +26,7 @@ def distribution_loss(y_true: tf.Tensor, y_pred: tf.Tensor, bucket_width: float 
     loss = tf.Variable(0.0)
 
     # Define a mask for the actual outcomes
-    actual_outcomes_mask = tf.one_hot(
-        (y_true - 1)[:, 0], 10, on_value=True, off_value=False)
+    actual_outcomes_mask = y_true > 0
 
     # Loop through each bucket threshold
     for bucket_start in bucket_ranges:
